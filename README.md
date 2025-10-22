@@ -22,6 +22,7 @@ Add the following secrets to your GitHub repository (Settings → Secrets and va
 
 #### Required Secrets:
 - `LOGZIO_API_TOKEN` - Production Logz.io API token
+- `LOGZIO_API_URL` - API Endpoint for your location
 
 
 ### 2. Get Your Logz.io API Token
