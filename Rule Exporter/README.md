@@ -25,7 +25,7 @@ Export all your security rules from Logz.io to individual JSON files.
 export LOGZIO_API_TOKEN='your-token-here'
 
 # Export rules with specific tag
-python3 export_logzio_rules.py --tag psdo-dev
+python3 export_logzio_rules.py --tag dev-rule
 
 # OR export ALL rules
 python3 export_logzio_rules.py --all --output exported-rules
