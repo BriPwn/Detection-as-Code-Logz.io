@@ -1,6 +1,6 @@
 # Logz.io Detection as Code
 
-This repository contains a GitHub Actions workflow for automatically deploying alerting and monitoring rules to Logz.io.
+This repository contains a GitHub Actions workflow for automatically deploying security rules to Logz.io.
 
 ## 📁 Directory Structure
 
@@ -31,9 +31,7 @@ Add the following secrets to your GitHub repository (Settings → Secrets and va
 3. Click **+ New API token**
 4. Give it a name (e.g., "GitHub Actions Deployment")
 5. Select the appropriate permissions:
-   - For alerts: `Alerts - Read` and `Alerts - Write`
    - For security rules: `Security - Read` and `Security - Write`
-   - For insights: `Insights - Read` and `Insights - Write`
 6. Copy the token and add it to GitHub Secrets
 
 ## 📝 Rule File Format
@@ -67,26 +65,23 @@ The workflow is triggered by:
 
 ### Adding a New Alert Rule
 
-1. Create a new JSON file in `logzio-rules/alerts/`:
+1. Create a new JSON file in `logzio-rules/security/`:
 ```bash
-touch logzio-rules/alerts/cpu-usage.json
+touch logzio-rules/security/cobaltstrike-usage.json
 ```
-
 2. Add your rule configuration
 3. Commit and push:
 ```bash
-git add logzio-rules/alerts/cpu-usage.json
-git commit -m "Add CPU usage alert rule"
+git add logzio-rules/security/cobaltstrike-usage.json
+git commit -m "Add Cobalt Strike usage alert rule"
 git push origin main
 ```
 
 ### Manual Deployment
 
 1. Go to Actions tab in your GitHub repository
-2. Select "Deploy Rules to Logz.io" workflow
+2. Select "Deploy Security Rules" workflow
 3. Click "Run workflow"
-4. Select environment (production/staging/development)
-5. Click "Run workflow" button
 
 ### Testing Rules in Pull Request
 
@@ -106,19 +101,6 @@ git checkout -b add-new-alerts
 - Click on the workflow run to see detailed logs
 - Each step shows success ✅ or failure ❌ status
 
-### Slack Notifications
-If configured, you'll receive Slack notifications with:
-- Deployment status (success/failure)
-- Environment deployed to
-- Triggering user
-- Commit SHA
-
-### GitHub Issues
-On deployment failure, an issue is automatically created with:
-- Failure details
-- Link to workflow run
-- Relevant metadata
-
 ## 🐛 Troubleshooting
 
 ### Common Issues
@@ -131,7 +113,7 @@ On deployment failure, an issue is automatically created with:
 ### Debug Tips
 
 - Check workflow logs in the Actions tab
-- Validate JSON locally: `jq . logzio-rules/rules/my-rule.json`
+- Validate JSON locally: `jq . logzio-rules/security-rules/my-rule.json`
 - Test API manually with curl:
 ```bash
 curl -X GET \
@@ -143,7 +125,6 @@ curl -X GET \
 ## 📚 Additional Resources
 
 - [Logz.io API Documentation](https://docs.logz.io/api/)
-- [Alert API Reference](https://docs.logz.io/api/#tag/Alerts)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 
 ## 📚 Licensing
