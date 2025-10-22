@@ -1,0 +1,44 @@
+name: Deploy Security Rules
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests
+      
+      - name: Deploy Security Rules
+        env:
+          LOGZIO_API_TOKEN: ${{ secrets.LOGZIO_API_TOKEN }}
+          LOGZIO_API_URL: ${{ secrets.LOGZIO_API_URL }}
+          DEPLOYMENT_ENV: ${{ github.ref_name }}
+          RULES_DIRECTORY: logzio-rules/security
+        run: |
+          python deploy_security_rules.py
+      
+      - name: Upload deployment results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-logs
+          path: |
+            *.log
+          retention-days: 30
