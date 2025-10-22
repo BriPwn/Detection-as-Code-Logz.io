@@ -294,7 +294,7 @@ export OUTPUT_DIR='exported-rules'
 ### "No rules found"
 ```bash
 # Check if tag is correct (case-sensitive!)
-python3 export_logzio_rules.py --tag PSDO-DEV --verbose
+python3 export_logzio_rules.py --tag DEV-RULE --verbose
 
 # Try exporting all rules
 python3 export_logzio_rules.py --all
